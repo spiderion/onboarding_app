@@ -47,11 +47,11 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   Scaffold getMainContent(BuildContext context) {
     return Scaffold(
         body: Stack(
-      children: [getBackground(), getMainWidget()],
+      children: [getBackground(), getBodyWidget()],
     ));
   }
 
-  Widget getMainWidget() {
+  Widget getBodyWidget() {
     return Stack(
       children: [
         SafeArea(child: SizedBox(height: 10)),
@@ -63,9 +63,9 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
                 child: Container(
                   height: MediaQuery.of(context).size.height * .6,
                   child: PageView(controller: pageController, children: [
+                    Image.asset('assets/images/run_girl2.png'),
                     Image.asset('assets/images/run_girl.png'),
-                    Image.asset('assets/images/run_girl.png'),
-                    Image.asset('assets/images/run_girl.png'),
+                    Image.asset('assets/images/gym_girl.png'),
                   ]),
                 ),
               ),
@@ -89,7 +89,7 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: height * 0.3),
-              Container(child: Column(children: [titleWidget(), subTitleWidget()])),
+              _getIntroTexts(),
               Flexible(child: horizontalActionsWidget()),
             ],
           ),
@@ -98,26 +98,42 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
     );
   }
 
+  Widget _getIntroTexts() {
+    return StreamBuilder<PageIntrosDataState>(
+        stream: bloc.getStreamOfType<PageIntrosDataState>(),
+        builder: (context, AsyncSnapshot<PageIntrosDataState> snapshot) {
+          if (snapshot.data == null) return Container();
+          return Container(
+              child: Column(
+                  children: [titleWidget(snapshot.data?.title ?? ''), subTitleWidget(snapshot.data?.subTitle ?? '')]));
+        });
+  }
+
   Widget _bottomBackgroundAnimation() {
-    return Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.white10, Theme.of(context).indicatorColor])),
-        height: MediaQuery.of(context).size.width,
-        child: rive.RiveAnimation.asset('assets/rive/new_file.riv'));
+    return StreamBuilder(
+        stream: bloc.getStreamOfType<PageIntrosDataState>(),
+        builder: (context, AsyncSnapshot<PageIntrosDataState> snapshot) {
+          return AnimatedContainer(
+              duration: Duration(seconds: 2),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.white10, snapshot.data?.color ?? Theme.of(context).backgroundColor])),
+              height: MediaQuery.of(context).size.width,
+              child: rive.RiveAnimation.asset('assets/rive/new_file.riv'));
+        });
   }
 
-  Widget titleWidget() {
-    return Text(translate('welcome').toUpperCase(), style: Theme.of(context).textTheme.headline5);
+  Widget titleWidget(String title) {
+    return Text(translate(title).toUpperCase(), style: Theme.of(context).textTheme.headline5);
   }
 
-  Widget subTitleWidget() {
+  Widget subTitleWidget(String subtitle) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       child: Text(
-        translate('we_connect_you_to_your_favourite').toUpperCase(),
+        translate(subtitle),
         style: TextStyle(fontSize: 12),
         textAlign: TextAlign.center,
       ),

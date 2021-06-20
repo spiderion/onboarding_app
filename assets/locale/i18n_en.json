@@ -1,0 +1,15 @@
+{
+  "app_name": "AppName",
+  "error": "Error",
+  "root_page": "Root Page",
+  "welcome_to": "Welcome to",
+  "data_was_not_previously_saved": "Data was not previously saved",
+  "save_data": "Save Data",
+  "saved": "Saved",
+  "success": "Success",
+  "get_data": "Get Data",
+  "something_went_wrong": "Something went wrong",
+  "ok": "Ok",
+  "welcome": "welcome",
+  "we_connect_you_to_your_favourite": "We connect you to your favourite"
+}

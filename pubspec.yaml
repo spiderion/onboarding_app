@@ -1,0 +1,39 @@
+name: flutter_app_template
+description: A new template app
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  template_package:
+    git:
+      url: https://github.com/spiderion/template_package.git
+  flutter_svg: ^0.22.0
+  rive: ^0.7.19
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/locale/
+    - assets/images/
+    - assets/rive/
+    - assets/fonts/
+
+  fonts:
+    - family: DelaGothicOne
+      fonts:
+        - asset: assets/fonts/DelaGothicOne-Regular.ttf

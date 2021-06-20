@@ -1,0 +1,14 @@
+{
+  "app_name": "NomeApp",
+  "error": "Errore",
+  "root_page": "Pagina root",
+  "welcome_to": "Benvenuto a",
+  "data_was_not_previously_saved": "Nessun data salvato in precedenza",
+  "save_data": "Salva Data",
+  "saved": "Salvato",
+  "success": "Success",
+  "get_data": "Prendi Data",
+  "something_went_wrong": "Qualcosa è andato storto",
+  "ok": "Ok",
+  "welcome": "benvenuto"
+}

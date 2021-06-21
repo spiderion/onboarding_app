@@ -3,6 +3,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';
+import 'package:flutter_app_template/widgets/animated_circle_transition_widget.dart';
+import 'package:flutter_app_template/widgets/shadow_image.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:template_package/base_widget/base_widget.dart';
 import 'package:template_package/template_package.dart';
@@ -54,26 +56,22 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   Widget getBodyWidget() {
     return Stack(
       children: [
-        SafeArea(child: SizedBox(height: 10)),
         Align(
-          alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              SafeArea(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * .6,
-                  child: PageView(controller: pageController, children: [
-                    Image.asset('assets/images/run_girl2.png'),
-                    Image.asset('assets/images/run_girl.png'),
-                    Image.asset('assets/images/gym_girl.png'),
-                  ]),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(right: 0, left: 0, bottom: 0, child: getBottomWidget()),
+            alignment: Alignment.topCenter,
+            child: Container(height: MediaQuery.of(context).size.height * 0.7, child: pageViewer())),
+        Align(alignment: Alignment.bottomCenter, child: getBottomWidget())
       ],
+    );
+  }
+
+  Widget pageViewer() {
+    return Container(
+      child: PageView(controller: pageController, children: [
+           AnimatedCircleTransitionWidget(
+            child: ShadowImage('assets/images/run_girl2.png')),
+        ShadowImage('assets/images/run_girl.png'),
+        ShadowImage('assets/images/gym_girl.png'),
+      ]),
     );
   }
 
@@ -104,8 +102,10 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
         builder: (context, AsyncSnapshot<PageIntrosDataState> snapshot) {
           if (snapshot.data == null) return Container();
           return Container(
-              child: Column(
-                  children: [titleWidget(snapshot.data?.title ?? ''), subTitleWidget(snapshot.data?.subTitle ?? '')]));
+              child: Column(children: [
+            titleWidget(snapshot.data?.title ?? ''),
+            subTitleWidget(snapshot.data?.subTitle ?? '')
+          ]));
         });
   }
 

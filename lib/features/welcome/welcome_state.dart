@@ -21,9 +21,9 @@ class FirstShadeDataState extends PageIntrosDataState {
 }
 
 class SecondShadeDataState extends PageIntrosDataState {
-  SecondShadeDataState({required String title, required String subTitle}) : super(Colors.pink[300]!, title, subTitle);
+  SecondShadeDataState({required String title, required String subTitle}) : super(Colors.black54, title, subTitle);
 }
 
 class ThirdShadeDataState extends PageIntrosDataState {
-  ThirdShadeDataState({required String title, required String subTitle}) : super(Colors.deepOrange, title, subTitle);
+  ThirdShadeDataState({required String title, required String subTitle}) : super(Colors.blueGrey, title, subTitle);
 }

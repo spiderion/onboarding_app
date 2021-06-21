@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app_template/core/constants/material_constants/material_constants.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';
 import 'package:flutter_app_template/widgets/animated_circle_transition_widget.dart';
 import 'package:flutter_app_template/widgets/animated_logo.dart';
+import 'package:flutter_app_template/widgets/intro_text_widget.dart';
 import 'package:flutter_app_template/widgets/shadow_image.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:template_package/base_widget/base_widget.dart';
@@ -94,13 +98,7 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _getIntroTexts(),
-                ],
-              )),
+              Flexible(child: _getIntroTexts()),
               Flexible(child: horizontalActionsWidget()),
             ],
           ),
@@ -114,12 +112,21 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
         stream: bloc.getStreamOfType<PageIntrosDataState>(),
         builder: (context, AsyncSnapshot<PageIntrosDataState> snapshot) {
           if (snapshot.data == null) return Container();
-          return Container(
-              child: Column(children: [
-            titleWidget(snapshot.data?.title ?? ''),
-            subTitleWidget(snapshot.data?.subTitle ?? '')
-          ]));
+          return Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()..rotateY(pi * snapshot.data!.animationValue),
+            child: transformedIntroTextWidget(snapshot.data!),
+          );
         });
+  }
+
+  Widget transformedIntroTextWidget(PageIntrosDataState pageIntrosDataState) {
+    return Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()..rotateY(pi * (pageIntrosDataState.isFirst ? 0 : 1)),
+      child: IntroTextWidget(
+          title: translate(pageIntrosDataState.title), subTitle: translate(pageIntrosDataState.subTitle)),
+    );
   }
 
   Widget _bottomBackgroundAnimation() {
@@ -136,21 +143,6 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
               height: MediaQuery.of(context).size.width,
               child: rive.RiveAnimation.asset('assets/rive/new_file.riv'));
         });
-  }
-
-  Widget titleWidget(String title) {
-    return Text(translate(title).toUpperCase(), style: Theme.of(context).textTheme.headline5);
-  }
-
-  Widget subTitleWidget(String subtitle) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.5,
-      child: Text(
-        translate(subtitle),
-        style: TextStyle(fontSize: 12),
-        textAlign: TextAlign.center,
-      ),
-    );
   }
 
   Widget horizontalActionsWidget() {
@@ -187,17 +179,36 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   }
 
   Widget forwardButton() {
-    return InkWell(
-      onTap: () => bloc.event.add(NextTapEvent()),
-      borderRadius: BorderRadius.circular(50),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
-        child: Icon(
-          Icons.arrow_forward,
-          size: 30,
-        ),
-      ),
-    );
+    return StreamBuilder(
+        stream: bloc.getStreamOfType<PageIntrosDataState>(),
+        builder: (context, AsyncSnapshot<PageIntrosDataState> snapshot) {
+          return InkWell(
+            onTap: () => bloc.event.add(NextTapEvent()),
+            borderRadius: BorderRadius.circular(50),
+            child: snapshot.data?.isLast == true
+                ? SizedBox(
+              height: 60,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('go'.toUpperCase(),
+                          style: TextStyle(fontFamily: MaterialFont.TERTIARY, fontWeight: FontWeight.w300)),
+                    ],
+                  ),
+                )
+                : SizedBox(height: 60,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                          Icons.arrow_forward,
+                          size: 30,
+                        ),
+                    ],
+                  ),
+                ),
+          );
+        });
   }
 
   Widget getBackground() {

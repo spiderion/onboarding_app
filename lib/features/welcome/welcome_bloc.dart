@@ -40,11 +40,20 @@ class WelcomeBloc extends TemplateBloc {
     var currentPage = 0;
     pageController.addListener(() {
       final newPage = pageController.page!.round();
-      if (currentPage != newPage) {
-        currentPage = newPage;
-        bottomShadeDataState.add(shadeDataStates()[currentPage]);
-      }
+      currentPage = newPage;
+      PageIntrosDataState state = shadeDataStates()[currentPage];
+      state.animationValue = calculateAnimationValue(pageController);
+      state.isLast = (currentPage == shadeDataStates().length - 1);
+      bottomShadeDataState.add(state);
     });
+  }
+
+  double calculateAnimationValue(PageController pageController) {
+    if (pageController.page!.round() == 0) {
+      return _pageController.page!;
+    }
+    final result = _pageController.page! / pageController.page!.round();
+    return result;
   }
 
   List<PageIntrosDataState> shadeDataStates() => [

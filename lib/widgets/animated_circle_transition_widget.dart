@@ -85,4 +85,10 @@ class _AnimatedCircleTransitionWidgetState extends State<AnimatedCircleTransitio
   BorderRadius? getCircleBorderRadius() {
     return BorderRadius.circular(tweenBorderRadius.animate(_animationController).value);
   }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 }

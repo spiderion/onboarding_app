@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';
 import 'package:flutter_app_template/widgets/animated_circle_transition_widget.dart';
+import 'package:flutter_app_template/widgets/animated_logo.dart';
 import 'package:flutter_app_template/widgets/shadow_image.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:template_package/base_widget/base_widget.dart';
@@ -59,7 +60,13 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
         Align(
             alignment: Alignment.topCenter,
             child: Container(height: MediaQuery.of(context).size.height * 0.7, child: pageViewer())),
-        Align(alignment: Alignment.bottomCenter, child: getBottomWidget())
+        Align(alignment: Alignment.bottomCenter, child: getBottomWidget()),
+        AnimatedPositionedLogo(
+            child: SafeArea(
+                child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: Text('Fit', style: Theme.of(context).textTheme.headline5),
+        )))
       ],
     );
   }
@@ -67,10 +74,11 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   Widget pageViewer() {
     return Container(
       child: PageView(controller: pageController, children: [
-           AnimatedCircleTransitionWidget(
-            child: ShadowImage('assets/images/run_girl2.png')),
-        ShadowImage('assets/images/run_girl.png'),
-        ShadowImage('assets/images/gym_girl.png'),
+        AnimatedCircleTransitionWidget(child: ShadowImage('assets/images/run_girl.png')),
+        AnimatedCircleTransitionWidget(
+            child: ShadowImage('assets/images/run_girl2.png'), initialDelayDuration: Duration.zero),
+        AnimatedCircleTransitionWidget(
+            child: ShadowImage('assets/images/gym_girl.png'), initialDelayDuration: Duration.zero),
       ]),
     );
   }
@@ -86,8 +94,13 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: height * 0.3),
-              _getIntroTexts(),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _getIntroTexts(),
+                ],
+              )),
               Flexible(child: horizontalActionsWidget()),
             ],
           ),
@@ -157,22 +170,12 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Row(
-                          children: [
-                            TabPageSelector(controller: _tabController, indicatorSize: 7),
-                            Spacer(),
-                            InkWell(
-                              onTap: () => bloc.event.add(NextTapEvent()),
-                              borderRadius: BorderRadius.circular(50),
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 30,
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: Row(
+                        children: [
+                          TabPageSelector(controller: _tabController, indicatorSize: 7),
+                          Spacer(),
+                          forwardButton(),
+                        ],
                       ),
                     ),
                   ],
@@ -181,6 +184,20 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
             ],
           );
         });
+  }
+
+  Widget forwardButton() {
+    return InkWell(
+      onTap: () => bloc.event.add(NextTapEvent()),
+      borderRadius: BorderRadius.circular(50),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+        child: Icon(
+          Icons.arrow_forward,
+          size: 30,
+        ),
+      ),
+    );
   }
 
   Widget getBackground() {

@@ -9,7 +9,7 @@ class AnimatedCircleTransitionWidget extends StatefulWidget {
   const AnimatedCircleTransitionWidget(
       {Key? key,
       required this.child,
-      this.duration = const Duration(milliseconds: 1000),
+      this.duration = const Duration(milliseconds: 2000),
       this.initialDelayDuration = const Duration(milliseconds: 2300)})
       : super(key: key);
 
@@ -33,7 +33,7 @@ class _AnimatedCircleTransitionWidgetState extends State<AnimatedCircleTransitio
     _animationController = AnimationController(vsync: this, duration: widget.duration);
     curvedAnimation = CurvedAnimation(parent: _animationController, curve: Curves.decelerate);
     tweenBorderRadius = Tween<double>(begin: 1000, end: 0);
-    tweenStackPosition = Tween<double>(begin: -1000, end: 0);
+    tweenStackPosition = Tween<double>(begin: -1200, end: 0);
     tweenTwist = Tween<double>(begin: -1.2, end: 0);
     tweenHeight = Tween<double>(begin: 0, end: 1000);
     init();
@@ -77,7 +77,7 @@ class _AnimatedCircleTransitionWidgetState extends State<AnimatedCircleTransitio
 
   double getHeight(double widgetSize) {
     if (curvedAnimation.value > 0.8 && heightAddition < 100) {
-      heightAddition += 3;
+      heightAddition += 10;
     }
     return widgetSize * curvedAnimation.value + heightAddition;
   }

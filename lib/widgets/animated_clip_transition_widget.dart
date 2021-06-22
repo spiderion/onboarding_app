@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class AnimatedCircleTransitionWidget extends StatefulWidget {
+class AnimatedClipTransitionWidget extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration initialDelayDuration;
 
-  const AnimatedCircleTransitionWidget(
+  const AnimatedClipTransitionWidget(
       {Key? key,
       required this.child,
       this.duration = const Duration(milliseconds: 2000),
@@ -14,10 +14,10 @@ class AnimatedCircleTransitionWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _AnimatedCircleTransitionWidgetState createState() => _AnimatedCircleTransitionWidgetState();
+  _AnimatedClipTransitionWidgetState createState() => _AnimatedClipTransitionWidgetState();
 }
 
-class _AnimatedCircleTransitionWidgetState extends State<AnimatedCircleTransitionWidget>
+class _AnimatedClipTransitionWidgetState extends State<AnimatedClipTransitionWidget>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Tween<double> tweenStackPosition;

@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/constants/material_constants/material_constants.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';
-import 'package:flutter_app_template/widgets/animated_circle_transition_widget.dart';
+import 'package:flutter_app_template/widgets/animated_clip_transition_widget.dart';
 import 'package:flutter_app_template/widgets/animated_logo.dart';
 import 'package:flutter_app_template/widgets/intro_text_widget.dart';
 import 'package:flutter_app_template/widgets/shadow_image.dart';
@@ -92,7 +92,7 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.min,
       children: [
-        AnimatedCircleTransitionWidget(
+        AnimatedClipTransitionWidget(
             child: ShadowImage(imagePath), initialDelayDuration: duration ?? Duration(milliseconds: 2300)),
       ],
     );

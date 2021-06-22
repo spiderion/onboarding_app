@@ -63,11 +63,13 @@ class WelcomeBloc extends TemplateBloc {
       ];
 
   void _animateNext() {
-    final nextPageIndex = _pageController.page!.round() + 1;
+    final currentPage = _pageController.page!.round();
+    final nextPageIndex = currentPage + 1;
+    Curve curve = shadeDataStates()[currentPage].curve;
     _pageController.animateToPage(
       nextPageIndex,
       duration: Duration(seconds: 2),
-      curve: Curves.easeInOutQuad,
+      curve: curve,
     );
   }
 

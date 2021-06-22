@@ -15,21 +15,23 @@ abstract class PageIntrosDataState extends BaseBlocDataState {
   double animationValue = 0;
   final bool isFirst;
   bool isLast;
+  Curve curve;
 
-  PageIntrosDataState(this.color, this.title, this.subTitle, {this.isFirst = false, this.isLast = false});
+  PageIntrosDataState(this.color, this.title, this.subTitle,
+      {this.isFirst = false, this.isLast = false, this.curve = Curves.easeOutCubic});
 }
 
 class FirstShadeDataState extends PageIntrosDataState {
   FirstShadeDataState({required String title, required String subTitle})
-      : super(Colors.black54, title, subTitle, isFirst: true);
+      : super(Colors.black54, title, subTitle, isFirst: true, curve: Curves.easeInOutQuad);
 }
 
 class SecondShadeDataState extends PageIntrosDataState {
   SecondShadeDataState({required String title, required String subTitle})
-      : super(Colors.pinkAccent, title, subTitle);
+      : super(Colors.pinkAccent, title, subTitle, curve: Curves.easeInToLinear);
 }
 
 class ThirdShadeDataState extends PageIntrosDataState {
   ThirdShadeDataState({required String title, required String subTitle})
-      : super(Colors.blueGrey, title, subTitle);
+      : super(Colors.blueGrey, title, subTitle, curve: Curves.easeInOutQuad);
 }

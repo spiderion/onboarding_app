@@ -29,7 +29,7 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
+    pageController = PageController(viewportFraction: 1);
     _tabController = TabController(length: carouselLength, vsync: this);
     var currentPage = 0;
     pageController.addListener(() {
@@ -59,11 +59,15 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   }
 
   Widget getBodyWidget() {
+    final pageOverFlow = -30.0;
     return Stack(
       children: [
-        Align(
-            alignment: Alignment.topCenter,
-            child: Container(height: MediaQuery.of(context).size.height * 0.7, child: pageViewer())),
+        Positioned.fill(
+          right: pageOverFlow,
+          left: pageOverFlow,
+            top: -50,
+            bottom: 50,
+            child: pageViewer()),
         Align(alignment: Alignment.bottomCenter, child: getBottomWidget()),
         AnimatedPositionedLogo(
             child: SafeArea(
@@ -76,14 +80,21 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
   }
 
   Widget pageViewer() {
-    return Container(
-      child: PageView(controller: pageController, children: [
-        AnimatedCircleTransitionWidget(child: ShadowImage('assets/images/run_girl.png')),
+    return PageView(controller: pageController, children: [
+      getPage('assets/images/run_girl.png'),
+      getPage('assets/images/run_girl2.png', duration: Duration.zero),
+      getPage('assets/images/gym_girl.png', duration: Duration.zero),
+    ]);
+  }
+
+  Column getPage(String imagePath, {Duration? duration}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.min,
+      children: [
         AnimatedCircleTransitionWidget(
-            child: ShadowImage('assets/images/run_girl2.png'), initialDelayDuration: Duration.zero),
-        AnimatedCircleTransitionWidget(
-            child: ShadowImage('assets/images/gym_girl.png'), initialDelayDuration: Duration.zero),
-      ]),
+            child: ShadowImage(imagePath), initialDelayDuration: duration ?? Duration(milliseconds: 2300)),
+      ],
     );
   }
 
@@ -139,7 +150,7 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.white10, snapshot.data?.color ?? Theme.of(context).backgroundColor])),
+                      colors: [Colors.transparent,Colors.white10, snapshot.data?.color ?? Theme.of(context).backgroundColor])),
               height: MediaQuery.of(context).size.width,
               child: rive.RiveAnimation.asset('assets/rive/new_file.riv'));
         });
@@ -187,26 +198,27 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with SingleTick
             borderRadius: BorderRadius.circular(50),
             child: snapshot.data?.isLast == true
                 ? SizedBox(
-              height: 60,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('go'.toUpperCase(),
-                          style: TextStyle(fontFamily: MaterialFont.TERTIARY, fontWeight: FontWeight.w300)),
-                    ],
-                  ),
-                )
-                : SizedBox(height: 60,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
+                    height: 60,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('go'.toUpperCase(),
+                            style: TextStyle(fontFamily: MaterialFont.TERTIARY, fontWeight: FontWeight.w300)),
+                      ],
+                    ),
+                  )
+                : SizedBox(
+                    height: 60,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
                           Icons.arrow_forward,
                           size: 30,
                         ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
           );
         });
   }

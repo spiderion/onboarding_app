@@ -59,7 +59,7 @@ class WelcomeBloc extends TemplateBloc {
   List<PageIntrosDataState> shadeDataStates() => [
         FirstShadeDataState(title: 'welcome', subTitle: 'discover_intro'),
         SecondShadeDataState(title: 'explore', subTitle: 'we_connect_you_to_your_favourite'),
-        ThirdShadeDataState(title: 'lets_go', subTitle: 'find_the_perfect_fit'),
+        ThirdShadeDataState(title: 'ready_set', subTitle: 'find_the_perfect_fit'),
       ];
 
   void _animateNext() {

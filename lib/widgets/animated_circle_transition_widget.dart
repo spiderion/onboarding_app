@@ -46,33 +46,31 @@ class _AnimatedCircleTransitionWidgetState extends State<AnimatedCircleTransitio
 
   @override
   Widget build(BuildContext context) {
-    final widgetSize = MediaQuery.of(context).size.width;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AnimatedBuilder(
-            child: widget.child,
-            animation: curvedAnimation,
-            builder: (context, child) {
-              return ClipRRect(
-                  borderRadius: getCircleBorderRadius(),
-                  child: Container(
-                      width: widgetSize * curvedAnimation.value,
-                      height: getHeight(widgetSize),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                              right: tweenStackPosition.animate(curvedAnimation).value,
-                              left: tweenStackPosition.animate(curvedAnimation).value,
-                              top: tweenStackPosition.animate(curvedAnimation).value,
-                              bottom: tweenStackPosition.animate(curvedAnimation).value,
-                              child: Transform.rotate(
-                                  angle: tweenTwist.animate(curvedAnimation).value, child: child!)),
-                        ],
-                      )));
-            }),
-      ],
-    );
+    final widgetSize = MediaQuery.of(context).size.height;
+    return AnimatedBuilder(
+        child: widget.child,
+        animation: curvedAnimation,
+        builder: (context, child) {
+          return clippedWidget(widgetSize, child!);
+        });
+  }
+
+  Widget clippedWidget(double widgetSize, Widget child) {
+    return ClipRRect(
+        borderRadius: getCircleBorderRadius(),
+        child: Container(
+            width: widgetSize * curvedAnimation.value,
+            height: widgetSize * curvedAnimation.value,
+            child: Stack(
+              children: [
+                Positioned(
+                    right: tweenStackPosition.animate(curvedAnimation).value,
+                    left: tweenStackPosition.animate(curvedAnimation).value,
+                    top: tweenStackPosition.animate(curvedAnimation).value,
+                    bottom: tweenStackPosition.animate(curvedAnimation).value,
+                    child: Transform.rotate(angle: tweenTwist.animate(curvedAnimation).value, child: child)),
+              ],
+            )));
   }
 
   double getHeight(double widgetSize) {

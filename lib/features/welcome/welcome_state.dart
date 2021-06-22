@@ -21,12 +21,12 @@ abstract class PageIntrosDataState extends BaseBlocDataState {
 
 class FirstShadeDataState extends PageIntrosDataState {
   FirstShadeDataState({required String title, required String subTitle})
-      : super(Colors.pink[400]!, title, subTitle, isFirst: true);
+      : super(Colors.black54, title, subTitle, isFirst: true);
 }
 
 class SecondShadeDataState extends PageIntrosDataState {
   SecondShadeDataState({required String title, required String subTitle})
-      : super(Colors.black54, title, subTitle);
+      : super(Colors.pinkAccent, title, subTitle);
 }
 
 class ThirdShadeDataState extends PageIntrosDataState {

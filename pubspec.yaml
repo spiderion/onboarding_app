@@ -16,6 +16,7 @@ dependencies:
       url: https://github.com/spiderion/template_package.git
   flutter_svg: ^0.22.0
   rive: ^0.7.19
+  lottie: ^1.0.1
   rxdart:
 
 dev_dependencies:
@@ -33,6 +34,7 @@ flutter:
     - assets/images/
     - assets/rive/
     - assets/fonts/
+    - assets/lottie/
 
   fonts:
     - family: DelaGothicOne

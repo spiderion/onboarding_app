@@ -12,7 +12,8 @@ abstract class PageIntrosDataState extends BaseBlocDataState {
   final String title;
   final String subTitle;
   final Color color;
-  double animationValue = 0;
+  double textAnimationValue = 0;
+  double backgroundAnimationValue = 0;
   final bool isFirst;
   bool isLast;
   Curve curve;

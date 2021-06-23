@@ -16,7 +16,7 @@ class ShadowImage extends StatelessWidget {
           right: -20,
           left: 30,
           bottom: 10,
-          child: Opacity(child: Image.asset(imagePath, color: Colors.black, fit: boxFit), opacity: 0.35)),
+          child: Opacity(child: Image.asset(imagePath, color: Colors.black, fit: boxFit), opacity: 0.3)),
       Positioned(
         top: 0,
         right: 0,
@@ -24,7 +24,7 @@ class ShadowImage extends StatelessWidget {
         bottom: 0,
         child: ClipRect(
             child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 14.0, sigmaY: 8.0),
+                filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 6.0),
                 child: Image.asset(imagePath, fit: boxFit))),
       )
     ]);

@@ -83,19 +83,24 @@ class _WelcomePageState extends BaseState<WelcomePage, BaseBloc> with TickerProv
 
   Widget pageViewer() {
     return PageView(controller: pageController, children: [
-      getPage('assets/images/run_girl.png'),
-      getPage('assets/images/run_girl2.png', duration: Duration.zero),
-      getPage('assets/images/gym_girl.png', duration: Duration.zero),
+      getPage('assets/images/run_girl.png', duration: Duration(milliseconds: 2000)),
+      getPage('assets/images/run_girl2.png',
+          duration: Duration(milliseconds: 2000), initialDelay: Duration.zero),
+      getPage('assets/images/gym_girl.png',
+          duration: Duration(milliseconds: 2000), initialDelay: Duration.zero, curve: Curves.fastLinearToSlowEaseIn),
     ]);
   }
 
-  Column getPage(String imagePath, {Duration? duration}) {
+  Column getPage(String imagePath, {Duration? initialDelay, required Duration duration, Curve? curve}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedClipTransitionWidget(
-            child: ShadowImage(imagePath), initialDelayDuration: duration ?? Duration(milliseconds: 2300)),
+            child: ShadowImage(imagePath),
+            duration: duration,
+            initialDelayDuration: initialDelay ?? Duration(milliseconds: 2300),
+            curve: curve)
       ],
     );
   }

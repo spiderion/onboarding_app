@@ -10,4 +10,22 @@ class RemoteConfig extends RemoteConfiguration {
   String getString(String key) {
     return key;
   }
+
+  @override
+  bool getBool(String key) {
+    // TODO: implement getBool
+    throw UnimplementedError();
+  }
+
+  @override
+  double getDouble(String key) {
+    // TODO: implement getDouble
+    throw UnimplementedError();
+  }
+
+  @override
+  int getInt(String key) {
+    // TODO: implement getInt
+    throw UnimplementedError();
+  }
 }

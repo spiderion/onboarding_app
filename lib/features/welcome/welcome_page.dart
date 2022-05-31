@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/core/constants/material_constants/material_constants.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';

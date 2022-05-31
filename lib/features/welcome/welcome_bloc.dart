@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_template/features/welcome/welcome_event.dart';
 import 'package:flutter_app_template/features/welcome/welcome_state.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:template_package/template_bloc/template_bloc.dart';
 import 'package:template_package/template_package.dart';
 
 class WelcomeBloc extends TemplateBloc {

@@ -11,7 +11,7 @@ class CoreSubModule extends ISubModule {
   init(List<ISubModule> subModules) {}
 
   BaseAnalytics analytics() {
-    _analytics ??= AnalyticsProxy([]);
+    _analytics ??= AnalyticsProxy([], enable: false);
     return _analytics!;
   }
 

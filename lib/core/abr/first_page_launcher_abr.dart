@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/dependency/sub_modules/bloc_sub_module.dart';
 import 'package:flutter_app_template/features/initial/initial_page.dart';
 import 'package:flutter_app_template/features/welcome/welcome_page.dart';

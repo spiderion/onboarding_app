@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_app_template/features/initial/initial_event.dart';
 import 'package:flutter_app_template/features/initial/initial_state.dart';
 import 'package:template_package/base_widget/base_widget.dart';
-import 'package:template_package/template_bloc/template_bloc.dart';
 import 'package:template_package/template_package.dart';
 
 class InitialPage extends BaseWidget {

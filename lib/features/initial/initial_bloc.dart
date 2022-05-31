@@ -5,10 +5,8 @@ import 'package:flutter_app_template/core/states/primary_states/error_states/err
 import 'package:flutter_app_template/core/use_cases/user_use_case.dart';
 import 'package:flutter_app_template/features/initial/initial_event.dart';
 import 'package:flutter_app_template/features/initial/initial_state.dart';
-import 'package:template_package/analytics/base_analytics.dart';
 import 'package:template_package/error_state.dart';
 import 'package:template_package/primary_states/common.dart';
-import 'package:template_package/template_bloc/template_bloc.dart';
 import 'package:template_package/template_package.dart';
 
 class InitialBloc extends TemplateBloc {

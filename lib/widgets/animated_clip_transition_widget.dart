@@ -78,7 +78,7 @@ class _AnimatedClipTransitionWidgetState extends State<AnimatedClipTransitionWid
             )));
   }
 
-  BorderRadius? getCircleBorderRadius() {
+  BorderRadius getCircleBorderRadius() {
     return BorderRadius.circular(tweenBorderRadius.animate(_animationController).value);
   }
 
